@@ -7,6 +7,7 @@ print ("--------------------------------")
 
 # Set path
 csvpath = os.path.join("pybank","Resources","budget_data.csv")
+outputpath =  os.path.join("pybank","Resources","budget_data.txt")
 
 # Set Variables
 total_months = 1 
@@ -23,7 +24,7 @@ pl_changes = []
 months=[]
 
 # Read csv file
-with open(csvpath, newline='') as csvfile:
+with open(csvpath, newline='') as csvfile, open(outputpath, 'w') as outputfile:
 
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -71,3 +72,14 @@ with open(csvpath, newline='') as csvfile:
     print(f"Greatest Increase in Profits: {greatest_increase[0]}, (${greatest_increase[1]})")
     print(f"Greatest Decrease in Profits: {greatest_decrease[0]}, (${greatest_decrease[1]})") 
     print ("------")
+
+    # Write output to file
+    outputfile.write(f"Financial Analysis\n----------------------------\n")
+    outputfile.write(f"Total Months: " + str(total_months) + "\n")
+    outputfile.write(f"Total: $" + str(total_pl) + "\n")
+    outputfile.write(f"Average Change: ${pl_avg_change:.2f})" + "\n")
+    outputfile.write(f"Greatest Increase in Profits: " + str(greatest_increase[0]) + ", ($" + str(greatest_increase[1]) + ")\n")
+    outputfile.write(f"Greatest Decrease in Profits: " + str(greatest_decrease[0]) + ", ($" + str(greatest_decrease[1]) + ")\n")
+    
+    
+

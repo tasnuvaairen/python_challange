@@ -11,8 +11,9 @@ vote_count = []
 
 # Set file path
 csvpath = os.path.join("pypoll\Resources\election_data.csv") 
+outputpath = os.path.join("pypoll","Resources","eletion_data.txt")
 
-with open(csvpath, newline='') as csvfile:
+with open(csvpath, newline='') as csvfile, open(outputpath, 'w') as outputfile:
 
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -35,16 +36,26 @@ with open(csvpath, newline='') as csvfile:
             candidate_index = candidates.index(row[2])
             vote_count[candidate_index] = vote_count[candidate_index] +1
 
+    outputfile.write(f"Election Results\n----------------------------\n")            
     print(f"Total Votes : {total_votes}")
+    outputfile.write(f"Total Votes : {total_votes} \n")
     print ("-----------------------------------------")
+    outputfile.write(f"\n---------------------------------\n")
     for candidate in candidates:
         candidate_index = candidates.index(candidate)
         percent_won = vote_count[candidate_index]/total_votes * 100
         print(f"{candidates[candidate_index]}: {percent_won:.3f}%, ({vote_count[candidate_index]})")
-
+        outputfile.write(f"{candidates[candidate_index]}: {percent_won:.3f}%, ({vote_count[candidate_index]})\n")
     
-max=max(vote_count)
-max_index = vote_count.index(max)
-print ("---------------------------------")
-print(f"Winner : {candidates[max_index ]}")
-print ("---------------------------------")
+    max=max(vote_count)
+    max_index = vote_count.index(max)
+    print ("---------------------------------")
+    outputfile.write(f"\n---------------------------------\n")
+    print(f"Winner : {candidates[max_index]}")
+    outputfile.write(f"Winner : {candidates[max_index]}")
+    print ("---------------------------------")
+    outputfile.write(f"\n---------------------------------\n")
+ 
+
+
+
